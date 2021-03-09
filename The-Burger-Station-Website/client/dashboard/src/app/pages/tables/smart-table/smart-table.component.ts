@@ -5,7 +5,7 @@ import {LocalDataSource} from 'ng2-smart-table';
 import {SmartTableData} from '../../../@core/data/smart-table';
 import {UsersService} from '../../../services/users.service';
 import {FormLayoutsComponent} from '../../forms/form-layouts/form-layouts.component';
-
+import Swal from 'sweetalert2'
 @Component({
   selector: 'ngx-smart-table',
   templateUrl: './smart-table.component.html',
@@ -103,10 +103,16 @@ export class SmartTableComponent implements OnInit {
 
   deleteAdmin(data: any) {
     this.UsersService.deleteUser(data).subscribe(data => {
-      console.log(data + 'sdsd')
+      Swal.fire({
+        title: 'success',
+        icon: "success"
+      })
       this.updateTable();
     }, error1 => {
-      console.log(data)
+      Swal.fire({
+        title: 'error',
+        icon: "error"
+      })
     })
   }
 }
