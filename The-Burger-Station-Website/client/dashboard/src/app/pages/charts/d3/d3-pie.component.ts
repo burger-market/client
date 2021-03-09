@@ -63,29 +63,43 @@ export class D3PieComponent implements OnDestroy,OnInit {
   //     console.log(data.results);
   // });
 
-    this.ItemsService.getAllItems().subscribe((data: any) => {
-    //         this.itemsCount = data.data.data.filter(item => {
-    //           return item.type === 'food'
-    // }).length;
-    //   this.branchesCount =  data.data.data.filter(item => {
-    //     return item.type === 'drink'
-    //   }).length;
+    this.ItemsService.groupByItems().subscribe(data => {
+      console.log(data.data.results)
+      localStorage.removeItem('BranchNumber');
+      localStorage.setItem('BranchNumber',
+        data.data.results[1].total
 
-      this.items = data.data.data;
-          localStorage.removeItem('BranchNumber');
-          localStorage.setItem('BranchNumber',
-            data.data.data.filter(item => {
-              return item.type === 'drink'
-            }).length
-            );
-            localStorage.removeItem('ItemNumber');
-            localStorage.setItem('ItemsNumber',
-              data.data.data.filter(item => {
-                return item.type === 'food'
-              }).length
-              );
-            console.log(data.data.data.length);
-        });
+      );
+      localStorage.removeItem('ItemNumber');
+      localStorage.setItem('ItemsNumber',
+        data.data.results[0].total
+      );
+    }, error1 => {
+
+    })
+  //   this.ItemsService.getAllItems().subscribe((data: any) => {
+  //   //         this.itemsCount = data.data.data.filter(item => {
+  //   //           return item.type === 'food'
+  //   // }).length;
+  //   //   this.branchesCount =  data.data.data.filter(item => {
+  //   //     return item.type === 'drink'
+  //   //   }).length;
+  //
+  //     this.items = data.data.data;
+  //   // localStorage.removeItem('BranchNumber');
+  //   // localStorage.setItem('BranchNumber',
+  //   //   data.data.data.filter(item => {
+  //   //     return item.type === 'drink'
+  //   //   }).length
+  //   // );
+  //   // localStorage.removeItem('ItemNumber');
+  //   // localStorage.setItem('ItemsNumber',
+  //   //   data.data.data.filter(item => {
+  //   //     return item.type === 'food'
+  //   //   }).length
+  //   // );
+  //   console.log(data.data.data.length);
+  // });
   }
 
 

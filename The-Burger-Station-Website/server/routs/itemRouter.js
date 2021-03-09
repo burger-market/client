@@ -17,6 +17,8 @@ router
     ItemController.createItem
   );
 
+router.route('/itemTypeCounts/').get(ItemController.getItemTypeCountes);
+
 router
   .route('/:id')
   .get(ItemController.getItem)

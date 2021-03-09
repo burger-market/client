@@ -12,7 +12,26 @@ exports.getItem = factory.getOne(Item);
 exports.createItem = factory.createOne(Item);
 exports.updateItem = factory.updateOne(Item);
 exports.deleteItem = factory.deleteOne(Item);
+exports.getItemTypeCountes = catchAsync(async (req, res, next) => {
+    const results = await Item.aggregate([
+        {
+            $unwind: '$type',
+        },
+        {
+            $group: {
+                _id: '$type',
+                total: { $sum: 1 },
+            },
+        },
+    ]);
 
+    res.status(200).json({
+        status: 'success',
+        data: {
+            results,
+        },
+    });
+});
 exports.checkUser = catchAsync(async (req,res,next)=> {
     if (req.user.id === req.body.user)
     {

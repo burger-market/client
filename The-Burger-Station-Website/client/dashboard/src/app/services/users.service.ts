@@ -64,8 +64,7 @@ export class UsersService {
   }
 
   deleteUser(User) {
-    return this.http.delete(this.baseUrl + '/deleteMe',  {
-      params: {User: User},
+    return this.http.delete(this.baseUrl + '/' + User._id,  {
       headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}
     })
   }
