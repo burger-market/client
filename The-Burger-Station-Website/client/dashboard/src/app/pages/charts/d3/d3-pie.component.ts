@@ -65,15 +65,22 @@ export class D3PieComponent implements OnDestroy,OnInit {
 
     this.ItemsService.groupByItems().subscribe(data => {
       console.log(data.data.results)
+      let drinkCount = 0;
+      let foodCount = 0;
+      if (data.data.results[1]._id === 'drink') {
+       drinkCount = data.data.results[1].total
+        foodCount = data.data.results[0].total
+      } else {
+        drinkCount = data.data.results[0].total
+        foodCount = data.data.results[1].total
+      }
       localStorage.removeItem('BranchNumber');
       localStorage.setItem('BranchNumber',
-        data.data.results[1].total
-
+        foodCount
       );
       localStorage.removeItem('ItemNumber');
       localStorage.setItem('ItemsNumber',
-        data.data.results[0].total
-      );
+        drinkCount      );
     }, error1 => {
 
     })
